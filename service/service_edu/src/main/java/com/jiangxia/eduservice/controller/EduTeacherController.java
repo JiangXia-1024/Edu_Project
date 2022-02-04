@@ -4,10 +4,7 @@ package com.jiangxia.eduservice.controller;
 import com.jiangxia.eduservice.entity.EduTeacher;
 import com.jiangxia.eduservice.service.EduTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,12 +20,19 @@ public class EduTeacherController {
     @Autowired
     EduTeacherService eduTeacherService;
 
-    //rest风格：查询所有的老师的数据
-    @GetMapping("findall")
+    //1、查询所有的老师的数据
+    @GetMapping("findall")//rest风格
     public List<EduTeacher> findAllTeacher(){
         //调用service方法查询所有数据
         List<EduTeacher> eduTeachers = eduTeacherService.list(null);
         return eduTeachers;
+    }
+
+    //2、根据id逻辑删除老师
+    @DeleteMapping("{id}")
+    public boolean removeTeacher(@PathVariable String id){
+        boolean flag = eduTeacherService.removeById(id);
+        return flag;
     }
 }
 
