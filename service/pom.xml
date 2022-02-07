@@ -21,7 +21,7 @@
 
     <dependency>
         <groupId>com.jiangxia</groupId>
-        <artifactId>service_base</artifactId>
+        <artifactId>service-base</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
