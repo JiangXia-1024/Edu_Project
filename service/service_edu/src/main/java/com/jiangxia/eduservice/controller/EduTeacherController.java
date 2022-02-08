@@ -1,6 +1,8 @@
 package com.jiangxia.eduservice.controller;
 
 
+import com.jiangxia.commonutils.ResultCode;
+import com.jiangxia.commonutils.ResultData;
 import com.jiangxia.eduservice.entity.EduTeacher;
 import com.jiangxia.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
@@ -27,18 +29,23 @@ public class EduTeacherController {
     //1、查询所有的老师的数据
     @ApiOperation(value = "所以讲师列表")
     @GetMapping("findall")//rest风格
-    public List<EduTeacher> findAllTeacher(){
+    public ResultData findAllTeacher(){
         //调用service方法查询所有数据
         List<EduTeacher> eduTeachers = eduTeacherService.list(null);
-        return eduTeachers;
+        //链式编程
+        return ResultData.ok().data("items",eduTeachers);
     }
 
     //2、根据id逻辑删除老师
     @ApiOperation(value = "逻辑删除讲师")
     @DeleteMapping("{id}")
-    public boolean removeTeacher(@ApiParam(name="id",value = "讲师ID",required = true) @PathVariable String id){
+    public ResultData removeTeacher(@ApiParam(name="id",value = "讲师ID",required = true) @PathVariable String id){
         boolean flag = eduTeacherService.removeById(id);
-        return flag;
+        if(flag){
+            return ResultData.ok();
+        }else{
+            return ResultData.error();
+        }
     }
 }
 
