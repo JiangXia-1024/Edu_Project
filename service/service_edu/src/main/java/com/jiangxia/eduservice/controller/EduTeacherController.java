@@ -1,6 +1,7 @@
 package com.jiangxia.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiangxia.commonutils.ResultCode;
 import com.jiangxia.commonutils.ResultData;
 import com.jiangxia.eduservice.entity.EduTeacher;
@@ -46,6 +47,20 @@ public class EduTeacherController {
         }else{
             return ResultData.error();
         }
+    }
+
+    @ApiOperation(value = "分页讲师列表")
+    @GetMapping("{page}/{limit}")
+    public ResultData pageList(
+        @ApiParam(name = "page", value = "当前页码", required = true)
+        @PathVariable Long page,
+        @ApiParam(name = "limit", value = "每页记录数", required = true)
+        @PathVariable Long limit){
+        Page<EduTeacher> pageParam = new Page<>(page, limit);
+        eduTeacherService.page(pageParam, null);
+        List<EduTeacher> records = pageParam.getRecords();
+        long total = pageParam.getTotal();
+        return  ResultData.ok().data("total", total).data("rows", records);
     }
 }
 
