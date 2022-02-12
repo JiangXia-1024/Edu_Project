@@ -133,5 +133,34 @@ public class EduTeacherController {
         return ResultData.ok().data("total",total).data("rows",records);//数据结果集
     }
 
+    //添加讲师接口
+    @PostMapping("addTeacher")
+    public ResultData addTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean save = eduTeacherService.save(eduTeacher);
+        if(save) {
+            return ResultData.ok();
+        } else {
+            return ResultData.error();
+        }
+    }
+
+    //根据讲师id进行查询
+    @GetMapping("getTeacher/{id}")
+    public ResultData getTeacher(@PathVariable String id) {
+        EduTeacher eduTeacher = eduTeacherService.getById(id);
+        return ResultData.ok().data("teacher",eduTeacher);
+    }
+
+    //讲师修改功能
+    @PostMapping("updateTeacher")
+    public ResultData updateTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean flag = eduTeacherService.updateById(eduTeacher);
+        if(flag) {
+            return ResultData.ok();
+        } else {
+            return ResultData.error();
+        }
+    }
+
 }
 
