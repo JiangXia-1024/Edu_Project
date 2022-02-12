@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiangxia.commonutils.ResultCode;
 import com.jiangxia.commonutils.ResultData;
+import com.jiangxia.config.exceptionhandler.CustomizeException;
 import com.jiangxia.eduservice.entity.EduTeacher;
 import com.jiangxia.eduservice.entity.vo.TeacherQuery;
 import com.jiangxia.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,18 @@ public class EduTeacherController {
     @ApiOperation(value = "所以讲师列表")
     @GetMapping("findall")//rest风格
     public ResultData findAllTeacher(){
+
+        //测试指定异常处理和统一异常处理
+        //int i = 10/0;
+//=========================================
+        //测试自定义异常处理
+//        try {
+//            int i = 10/0;
+//        }catch (Exception e){
+//            //自定义异常需要手动抛出异常
+//            throw new CustomizeException(20000,"这里执行了自定义的异常处理");
+//        }
+//=========================================
         //调用service方法查询所有数据
         List<EduTeacher> eduTeachers = eduTeacherService.list(null);
         //链式编程
