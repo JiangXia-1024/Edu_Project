@@ -12,6 +12,7 @@ import com.jiangxia.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,6 @@ import java.util.List;
 @Api(description="讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacher")
-@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -139,13 +139,12 @@ public class EduTeacherController {
         if(!StringUtils.isEmpty(end)) {
             wrapper.le("gmt_create",end);
         }
-        //排序
-        wrapper.orderByDesc("gmt_create");
+
         //调用方法实现条件分页查询
         eduTeacherService.page(page,wrapper);
         long total = page.getTotal();//总记录数
         List<EduTeacher> records = page.getRecords();//数据list集合
-        return ResultData.ok().data("total",total).data("records",records);//数据结果集
+        return ResultData.ok().data("total",total).data("rows",records);//数据结果集
     }
 
     //添加讲师接口
