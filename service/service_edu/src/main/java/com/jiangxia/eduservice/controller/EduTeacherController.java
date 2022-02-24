@@ -27,6 +27,7 @@ import java.util.List;
 @Api(description="讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -144,7 +145,7 @@ public class EduTeacherController {
         eduTeacherService.page(page,wrapper);
         long total = page.getTotal();//总记录数
         List<EduTeacher> records = page.getRecords();//数据list集合
-        return ResultData.ok().data("total",total).data("rows",records);//数据结果集
+        return ResultData.ok().data("total",total).data("records",records);//数据结果集
     }
 
     //添加讲师接口
