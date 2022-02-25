@@ -10,9 +10,15 @@ import lombok.Data;
  */
 @Data
 public class ExcelDemoData {
-//    设置excelproperty
-    @ExcelProperty("编号")
+
+    //    设置excelproperty
+    //设置列对应的属性
+    @ExcelProperty(index = 0)
+//    @ExcelProperty("编号")
     private Integer sno;
-    @ExcelProperty("名称")
+//    @ExcelProperty("名称")
+    //设置列对应的属性
+    @ExcelProperty(index = 1)
     private String sname;
+
 }
