@@ -1,13 +1,13 @@
 package com.jiangxia.eduservice.controller;
 
 import com.jiangxia.commonutils.ResultData;
+import com.jiangxia.eduservice.entity.subject.OneSubject;
 import com.jiangxia.eduservice.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author jiangxia
@@ -26,5 +26,12 @@ public class EduSubjectController {
         //上传过来的excel文件
         eduSubjectService.saveSubject(file,eduSubjectService);
         return ResultData.ok();
+    }
+    //课程分类列表（树形）
+    @GetMapping("getAllSubject")
+    public ResultData getAllSubject() {
+        //list集合泛型是一级分类
+        List<OneSubject> list = eduSubjectService.getAllOneTwoSubject();
+        return ResultData.ok().data("list",list);
     }
 }
