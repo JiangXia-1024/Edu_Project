@@ -35,7 +35,7 @@ public class EduTeacherController {
 
     //1、查询所有的老师的数据
     @ApiOperation(value = "所以讲师列表")
-    @GetMapping("findall")//rest风格
+    @GetMapping("findAll")//rest风格
     public ResultData findAllTeacher(){
 
         //测试指定异常处理和统一异常处理
@@ -145,7 +145,7 @@ public class EduTeacherController {
         eduTeacherService.page(page,wrapper);
         long total = page.getTotal();//总记录数
         List<EduTeacher> records = page.getRecords();//数据list集合
-        return ResultData.ok().data("total",total).data("records",records);//数据结果集
+        return ResultData.ok().data("total",total).data("rows",records);//数据结果集
     }
 
     //添加讲师接口
