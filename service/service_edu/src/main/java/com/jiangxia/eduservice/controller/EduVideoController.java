@@ -1,10 +1,12 @@
 package com.jiangxia.eduservice.controller;
 
 import com.jiangxia.commonutils.ResultData;
+import com.jiangxia.eduservice.client.VodClient;
 import com.jiangxia.eduservice.entity.EduVideo;
 import com.jiangxia.eduservice.service.EduVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.util.StringUtils;
 
 /**
  * @author jiangxia
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class EduVideoController {
     @Autowired
     private EduVideoService videoService;
+    //注入vodclient
+    @Autowired
+    VodClient vodClient;
 
     //添加小节
     @PostMapping("addVideo")
@@ -29,6 +34,13 @@ public class EduVideoController {
     // TODO 后面这个方法需要完善：删除小节时候，同时把里面视频删除
     @DeleteMapping("{id}")
     public ResultData deleteVideo(@PathVariable String id) {
+        //先查询视频id
+        EduVideo eduVideo = videoService.getById(id);
+        String sourceid = eduVideo.getVideoSourceId();
+        //如果视频id不为空，则删除
+        if(!StringUtils.isEmpty(sourceid)){
+            vodClient.removeVideo(sourceid);
+        }
         videoService.removeById(id);
         return ResultData.ok();
     }
