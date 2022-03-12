@@ -1,6 +1,5 @@
 package com.jiangxia.vod.service.impl;
 
-import com.aliyun.oss.common.utils.StringUtils;
 import com.aliyun.vod.upload.impl.UploadVideoImpl;
 import com.aliyun.vod.upload.req.UploadStreamRequest;
 import com.aliyun.vod.upload.resp.UploadStreamResponse;
@@ -10,10 +9,12 @@ import com.jiangxia.config.exceptionhandler.CustomizeException;
 import com.jiangxia.vod.service.VodService;
 import com.jiangxia.vod.util.ConstantVodUtils;
 import com.jiangxia.vod.util.InitVodCilent;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class VodServiceImpl implements VodService {
             DeleteVideoRequest request = new DeleteVideoRequest();
 
             //videoIdList值转换成 1,2,3
-            String videoIds = StringUtils.join(videoIdList.toString(), ",");
+            String videoIds = StringUtils.join(videoIdList.toArray(), ",");
 
             //向request设置视频id
             request.setVideoIds(videoIds);
@@ -67,5 +68,16 @@ public class VodServiceImpl implements VodService {
             e.printStackTrace();
             throw new CustomizeException(20001,"删除视频失败");
         }
+    }
+
+    //测试StringUtils.join方法，该方法将list转为string
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("11");
+        list.add("22");
+        list.add("33");
+        // 11,22,33
+        String join = StringUtils.join(list.toArray(), ",");
+        System.out.println(join);
     }
 }
