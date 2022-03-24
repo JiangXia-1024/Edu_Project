@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  * @author jiangxia
  * @date 2022年02月08日 22:22
+ * @desc:统一返回结果类
  */
 @Data
 public class ResultData {
