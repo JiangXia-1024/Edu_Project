@@ -10,6 +10,7 @@ import java.io.IOException;
 /**
  * @author jiangxia
  * @date 2022年03月24日 17:35
+ * desc:请求结果处理工具类
  */
 public class ResponseUtil {
     public static void out(HttpServletResponse response,ResultData resultData){
