@@ -17,4 +17,7 @@ public interface UcenterMemberService extends IService<UcenterMember> {
 
     //根据openid判断是否有该微信会员信息
     UcenterMember getOpenIdMember(String openid);
+
+    //查询某一天注册人数
+    Integer countRegisterDay(String day);
 }
